@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Shiloh Auto: asphalt charcoal, concrete grey, one safety yellow */
+@theme inline {
+  --color-background: var(--bg);
+  --color-border: var(--line);
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-acc: var(--acc);
+  --color-yel: #ffc21a;
+  --color-asphalt: #121315;
+  --font-display: var(--font-shoulders), Impact, sans-serif;
+  --font-sans: var(--font-public), system-ui, sans-serif;
+  --ease-silk: cubic-bezier(.32, .72, 0, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap))); } }
+}
+
+:root {
+  --bg: #f1f0ec; --bg-2: #e7e5df; --card: #fbfaf7; --ink: #17191c; --soft: #5b5f66; --line: rgba(23, 25, 28, .12);
+  --acc: #8a6200; --glass: rgba(241, 240, 236, .74); --hi: rgba(255, 255, 255, .8); --shadow: rgba(23, 25, 28, .18); --map: none;
+}
+.dark {
+  --bg: #0f1012; --bg-2: #15171a; --card: #1b1e22; --ink: #f1f0ec; --soft: #a3a7ae; --line: rgba(241, 240, 236, .09);
+  --acc: #ffd257; --glass: rgba(15, 16, 18, .7); --hi: rgba(255, 255, 255, .05); --shadow: rgba(0, 0, 0, .6);
+  --map: invert(.9) hue-rotate(180deg) saturate(.5);
+  color-scheme: dark;
+}
+
+@layer base {
+  html { overflow-x: clip; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; transition: background-color .5s var(--ease-silk), color .5s var(--ease-silk); }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: .005em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: #ffc21a; color: #1d1700; }
+  :focus-visible { outline: 3px solid #ffc21a; outline-offset: 3px; border-radius: 10px; }
+}
+
+body::after { content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.glass { background: var(--glass); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); }
+.hazard { background: repeating-linear-gradient(-45deg, #ffc21a 0 16px, #121315 16px 32px); }
+.tread { background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.045) 0 10px, transparent 10px 24px), repeating-linear-gradient(65deg, rgba(255,255,255,.045) 0 10px, transparent 10px 24px); }
+.bezel { padding: 6px; background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); }
+.hl { color: #17191c; background: #ffc21a; padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+/* theme change sweeps in like headlight beams from the knob */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: beam .6s cubic-bezier(.7, 0, .3, 1); }
+@keyframes beam { from { clip-path: circle(0 at var(--rx, 100%) var(--ry, 0)); } to { clip-path: circle(var(--rr, 150vmax) at var(--rx, 100%) var(--ry, 0)); } }
+
+.rv { opacity: 0; transform: translateY(40px); filter: blur(8px); transition-property: opacity, transform, filter; transition-duration: 1s; transition-timing-function: cubic-bezier(.32, .72, 0, 1); }
+.rv.in { opacity: 1; transform: none; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; filter: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (prefers-reduced-transparency: reduce) { .glass { background: var(--bg); backdrop-filter: none; } }
