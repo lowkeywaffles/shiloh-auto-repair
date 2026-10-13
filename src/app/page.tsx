@@ -122,14 +122,14 @@ export default function Home() {
       <div className="hazard h-2" />
       <header className="pointer-events-none sticky top-3 z-40 px-4">
         <nav className="glass pointer-events-auto mx-auto flex h-[68px] max-w-[1160px] items-center justify-between gap-3 rounded-2xl border border-line ps-3 pe-2.5 shadow-[inset_0_1px_0_var(--hi),0_20px_50px_-28px_var(--shadow)]">
-          <a href="#top" className="flex flex-none items-center gap-2.5" aria-label="Shiloh Auto Repair & Tires">
-            <span className="grid size-11 place-items-center rounded-xl bg-asphalt"><Tire size={26} weight="duotone" color="#ffc21a" /></span>
-            <span><b className="block font-display text-2xl leading-[.9] font-black uppercase">Shiloh Auto</b><T k="logoSub" className="mt-0.5 block text-[11px] font-bold tracking-[.14em] text-soft uppercase max-sm:hidden" /></span>
+          <a href="#top" className="flex min-w-0 items-center gap-2.5" aria-label="Shiloh Auto Repair & Tires">
+            <span className="grid size-11 flex-none place-items-center rounded-xl bg-asphalt"><Tire size={26} weight="duotone" color="#ffc21a" /></span>
+            <span className="min-w-0"><b className="block font-display text-2xl leading-[.9] font-black uppercase max-sm:text-xl">Shiloh Auto</b><T k="logoSub" className="mt-0.5 block text-[11px] font-bold tracking-[.14em] text-soft uppercase max-sm:hidden" /></span>
           </a>
           <div className="flex items-center gap-1 text-[15px] font-semibold max-[960px]:hidden">
             {["Services", "Why", "Visit"].map(k => <a key={k} href={`#${k.toLowerCase()}`} className="rounded-full px-4 py-2 text-soft transition-colors hover:bg-bg2 hover:text-ink" dangerouslySetInnerHTML={{ __html: t(`nav${k}`) }} />)}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-none items-center gap-3 max-sm:gap-2">
             <Shifter /><Headlight />
             <a href={TEL} className={cn(yel, "px-5 py-2.5 max-sm:hidden")}><Phone size={17} weight="bold" />{PHONE}</a>
           </div>
